@@ -19,6 +19,10 @@ config.delete_module('data')
 
 3. Manage the configuration YAML file by command line
 - If experiment name is not given project name will be used alternatively
+- In case of using yaml name directly the format should follow
+  - **`(module)_(experiment name)_v(version).yaml`**
+
+<img src="https://github.com/IllgamhoDuck/yaml_configuration_manager/blob/main/images/yaml_format.png?raw=true" width="500">
 
 ```python
 config.show('training')
