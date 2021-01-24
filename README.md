@@ -2,6 +2,8 @@
 
 🦆🦆🦆 A simple tool to manage yaml file by modules 🦆🦆🦆🦆
 
+<img src="https://github.com/IllgamhoDuck/yaml_configuration_manager/blob/main/images/structure.png?raw=true" width="400">
+
 ## 1. project name and path must be given
 - `project path` should be the root path of the project folder
 
@@ -23,7 +25,7 @@ config.delete_module('data')
 - In case of using yaml name directly the format should follow
   - **`(module)_(experiment name)_v(version).yaml`**
 
-<img src="https://github.com/IllgamhoDuck/yaml_configuration_manager/blob/main/images/yaml_format.png?raw=true" width="500">
+<img src="https://github.com/IllgamhoDuck/yaml_configuration_manager/blob/main/images/yaml_format.png?raw=true" width="450">
 
 ```python
 config.show('training')
