@@ -628,9 +628,6 @@ class ConfigurationManager:
         # module - 'data'
         module = yaml_list[0]
 
-        # experiment_name - 'riiid'
-        experiment_name = ''.join(yaml_list[1:-1])
-
         # version - 1.0
         version = yaml_list[-1]
 
@@ -643,6 +640,12 @@ class ConfigurationManager:
             version = float(version[1:])
         except:
             raise ValueError(f'Version should be float but given [ {version[1:]} ] as {type(version[1:])}')
+
+        # experiment_name - 'riiid'
+        ex_left_index = len(module) + 1
+        ex_right_index = -1 * len(yaml_list[-1]) - 1
+
+        experiment_name = yaml_header[ex_left_index:ex_right_index]
 
         return module, version, experiment_name
 
