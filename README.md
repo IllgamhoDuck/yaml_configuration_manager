@@ -72,3 +72,69 @@ config.delete_experiment(5)
 ```python
 config.show_history()
 ```
+
+## Example of usage
+
+### ML Pipeline Managing
+- data
+- train
+- test
+
+```python
+# create config and load
+config.create(module='data', version=1.0)
+config.create(module='train', version=1.0)
+config.create(module='test', version=1.0)
+data_config = config.get(module='data', version=1.0)
+
+# Add information to the data
+data_config['url'] = 'duck.quark.happy.com'
+data_config['db'] = 'postgressql'
+data_config['encoding type note'] = "I'm working on blah blah blah"
+data_config['scaling'] = {'mean': 1.0, 'var': 0.5}
+
+# update yaml
+config.update(module='data', version=1.0, config_dict=data_config)
+```
+
+### ML Model Hyperparameter Managing
+```python
+for model in ['lgbm', 'svm', 'linear regression']:
+    config.create(module=model, version=1.0)
+```
+
+- Hyperparameter Setting
+
+```python
+lgbm_config = config.get(module='lgbm', version=1.0)
+for ex in ['type 1', 'type 2', 'type 3']:
+    lgbm_config['hyperparameter setting'] = {'type': ex, 'and': 'much more'}
+    config.create(module='lgbm', version=1.0, experiment_name=f'hyperparameter {ex}', config_dict=lgbm_config)
+```
+
+- Hyperparameter Grid Search Setting
+
+```python
+del lgbm_config['hyperparameter setting']
+
+# Version  1.0
+lgbm_config['lr'] = [0.1, 0.001, 0.0001]
+lgbm_config['max_depth'] = [1, 5, 100]
+lgbm_config['bagging_fraction'] = [0.1, 0.5, 0.7]
+
+config.create(module='lgbm', version=1.0, experiment_name='gridsearch', config_dict=lgbm_config)
+
+# Version  1.2
+lgbm_config['lr'] = [0.001, 0.005, 0.007, 0.009, 0.0001]
+lgbm_config['max_depth'] = [5, 10, 20, 30, 50]
+lgbm_config['bagging_fraction'] = [0.5, 0.55, 0.56, 0.57, 0.7]
+
+config.create(module='lgbm', version=1.2, experiment_name='gridsearch', config_dict=lgbm_config)
+```
+
+### Read all yaml files in specific module
+
+```python
+for yaml_name in config.show('lgbm'):
+    print(config.get_yaml(yaml_name))
+```
